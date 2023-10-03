@@ -79,8 +79,10 @@ namespace Day4
                         string line = "";
                         foreach (string s in split)
                         {
-                            
+                            line += $"{s} ";
                         }
+
+                        Console.WriteLine(line);
                     }
                 }
             }
