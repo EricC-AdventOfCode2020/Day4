@@ -21,7 +21,8 @@ namespace Day4
                 "hgt:179cm",
                 "-",
                 "hcl:#cfa07d eyr:2025 pid:166559648",
-                "iyr:2011 ecl:brn hgt:59in"
+                "iyr:2011 ecl:brn hgt:59in",
+                "-"
             };
 
             List<string> data = new List<string>();
@@ -37,6 +38,7 @@ namespace Day4
 
                     data.Add(line!);
                 }
+                data.Add("-");
             }
 
             // TODO: find way to split different batches (DONE)
@@ -52,20 +54,22 @@ namespace Day4
 
             StringBuilder sb = new StringBuilder();
 
+            var theThing = data;
+
             // im going to kill myself
-            for (int i = 0; i < data.Count; i++)
+            for (int i = 0; i < theThing.Count; i++)
             {
-                if (data[i] != "-")
+                if (theThing[i] != "-")
                 {
-                    sb.Append(data[i]);
+                    sb.Append(theThing[i]);
                 }
 
-                if (i + 1 < data.Count && data[i + 1] != "-" && data[i] != "-")
+                if (i + 1 < theThing.Count && theThing[i + 1] != "-" && theThing[i] != "-")
                 {
                     sb.Append(" ");
                 }
 
-                if (data[i] == "-")
+                if (theThing[i] == "-")
                 {
                     string lines = sb.ToString();
                     sb.Clear();
@@ -77,11 +81,20 @@ namespace Day4
                     else if (split.Length == 7)
                     {
                         string line = "";
-                        foreach (string s in split)
+                        for(int j = 0; j < split.Length; j++)
                         {
-                            line += $"{s} ";
+                            if (j != 6)
+                            {
+                                line += $"{split[j]} ";
+                            }
+                            else
+                            {
+                                line += split[j];
+                            }
                         }
 
+                        if (!line.Contains("cid"))
+                            validCount++;
                         Console.WriteLine(line);
                     }
                 }
@@ -89,6 +102,7 @@ namespace Day4
 
             // 285 too high
             // 200 too low
+            // 253 too low
             Console.WriteLine(validCount);
         }
     }
