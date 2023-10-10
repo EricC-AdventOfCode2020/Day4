@@ -87,15 +87,27 @@ namespace Day4
                         }
                         else if (splitSplit[0] == "iyr")
                         {
+                            Regex rg = new("^[2010-2020]$");
 
+                            MatchCollection matches = rg.Matches(splitSplit[1]);
+                            if (matches.Count == 0)
+                                break;
                         }
                         else if (splitSplit[0] == "eyr")
                         {
+                            Regex rg = new("^[2020-2030]$");
 
+                            MatchCollection matches = rg.Matches(splitSplit[1]);
+                            if (matches.Count == 0)
+                                break;
                         }
                         else if (splitSplit[0] == "hgt")
                         {
+                            Regex rg = new("^$");
 
+                            MatchCollection matches = rg.Matches(splitSplit[1]);
+                            if (matches.Count == 0)
+                                break;
                         }
                         else if (splitSplit[0] == "hcl")
                         {
