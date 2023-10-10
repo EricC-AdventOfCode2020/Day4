@@ -1,5 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Day4
 {
@@ -45,11 +47,6 @@ namespace Day4
             // SOLUTION: made it so when reading file, if line == empty string, replace line with '-'
 
             // TODO: solve problem now
-            List<string> fields = new List<string>() { "ecl", "pid", "eyr", "hcl", "byr", "iyr", "hgt", "cid" };
-            List<string> fieldsCopy = new List<string>() { "ecl", "pid", "eyr", "hcl", "byr", "iyr", "hgt", "cid" };
-
-            bool[] fieldsPresent = { false, false, false, false, false, false, false, false };
-
             int validCount = 0;
 
             StringBuilder sb = new StringBuilder();
@@ -76,26 +73,46 @@ namespace Day4
 
                     string[] split = lines.Split(' ');
 
-                    if (split.Length == 8)
-                        validCount++;
-                    else if (split.Length == 7)
+                    for (int j =  0; j < split.Length; j++)
                     {
-                        string line = "";
-                        for(int j = 0; j < split.Length; j++)
-                        {
-                            if (j != 6)
-                            {
-                                line += $"{split[j]} ";
-                            }
-                            else
-                            {
-                                line += split[j];
-                            }
-                        }
+                        string[] splitSplit = split[j].Split(':');
 
-                        if (!line.Contains("cid"))
-                            validCount++;
-                        Console.WriteLine(line);
+                        if (splitSplit[0] == "byr")
+                        {
+                            Regex rg = new("^[1920-2002]$");
+
+                            MatchCollection matches = rg.Matches(splitSplit[1]);
+                            if (matches.Count == 0)
+                                break;
+                        }
+                        else if (splitSplit[0] == "iyr")
+                        {
+
+                        }
+                        else if (splitSplit[0] == "eyr")
+                        {
+
+                        }
+                        else if (splitSplit[0] == "hgt")
+                        {
+
+                        }
+                        else if (splitSplit[0] == "hcl")
+                        {
+
+                        }
+                        else if (splitSplit[0] == "ecl")
+                        {
+
+                        }
+                        else if (splitSplit[0] == "pid")
+                        {
+
+                        }
+                        else if (splitSplit[0] == "cid")
+                        {
+                            continue;
+                        }
                     }
                 }
             }
