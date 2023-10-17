@@ -50,7 +50,7 @@ namespace Day4
 
             StringBuilder sb = new StringBuilder();
 
-            var theThing = fixedData;
+            var theThing = data;
 
             // im going to kill myself
             for (int i = 0; i < theThing.Count; i++)
@@ -89,6 +89,7 @@ namespace Day4
 
             // 186 too high (but also that's someone's answer??)
             // 185 too high
+            // 184 was correct i'm going to kill myself
             Console.WriteLine(validCount);
             Console.ReadKey();
         }
