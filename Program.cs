@@ -29,7 +29,7 @@ namespace Day4
 
             List<string> data = new List<string>();
 
-            using (var sr = new StreamReader(@"..\..\..\input"))
+            using (var sr = new StreamReader(@".\input"))
             {
                 while (!sr.EndOfStream)
                 {
@@ -68,63 +68,17 @@ namespace Day4
 
                 if (theThing[i] == "-")
                 {
-                    string lines = sb.ToString();
+                    Regex rx = new Regex(@"byr:\b(19[2-9][0-9]|200[0-2])\b|iyr:\b(201[0-9]|2020)\b|eyr:\b(202[0-9]|2030)\b|hgt:\b(15[0-9]cm|16[0-9]cm|17[0-9]cm|18[0-9]cm|19[0-3]cm|59in|6[0-9]in|7[0-6]in)\b|hcl:#[a-f0-9]{6}|ecl:\b(amb|blu|brn|gry|grn|hzl|oth)\b|pid:[0-9]{9}");
+                    //Regex rx = new Regex(@"byr:\b19[2-9][0-9]|200[0-2]\b|iyr:\b201[0-9]|2020\b|eyr:\b202[0-9]|2030\b|hgt:\b15[0-9]cm|16[0-9]cm|17[0-9]cm|18[0-9]cm|19[0-3]cm|59in|6[0-9]in|7[0-6]in\b|hcl:#[a-f0-9]{6}|\becl:amb|ecl:blu|ecl:brn|ecl:gry|ecl:grn|ecl:hzl|ecl:oth\b|pid:[0-9]{9}");
+
+                    string line = sb.ToString();
                     sb.Clear();
 
-                    string[] split = lines.Split(' ');
-
-                    for (int j =  0; j < split.Length; j++)
+                    MatchCollection match = rx.Matches(line);
+                    if (match.Count == 7)
                     {
-                        string[] splitSplit = split[j].Split(':');
-
-                        if (splitSplit[0] == "byr")
-                        {
-                            Regex rg = new("^[1920-2002]$");
-
-                            MatchCollection matches = rg.Matches(splitSplit[1]);
-                            if (matches.Count == 0)
-                                break;
-                        }
-                        else if (splitSplit[0] == "iyr")
-                        {
-                            Regex rg = new("^[2010-2020]$");
-
-                            MatchCollection matches = rg.Matches(splitSplit[1]);
-                            if (matches.Count == 0)
-                                break;
-                        }
-                        else if (splitSplit[0] == "eyr")
-                        {
-                            Regex rg = new("^[2020-2030]$");
-
-                            MatchCollection matches = rg.Matches(splitSplit[1]);
-                            if (matches.Count == 0)
-                                break;
-                        }
-                        else if (splitSplit[0] == "hgt")
-                        {
-                            Regex rg = new("^$");
-
-                            MatchCollection matches = rg.Matches(splitSplit[1]);
-                            if (matches.Count == 0)
-                                break;
-                        }
-                        else if (splitSplit[0] == "hcl")
-                        {
-
-                        }
-                        else if (splitSplit[0] == "ecl")
-                        {
-
-                        }
-                        else if (splitSplit[0] == "pid")
-                        {
-
-                        }
-                        else if (splitSplit[0] == "cid")
-                        {
-                            continue;
-                        }
+                        Console.WriteLine(line);
+                        validCount++;
                     }
                 }
             }
@@ -132,7 +86,12 @@ namespace Day4
             // 285 too high
             // 200 too low
             // 253 too low
+            // 254 correct
+
+            // 186 too high (but also that's someone's answer??)
+            // 185 too high
             Console.WriteLine(validCount);
+            Console.ReadKey();
         }
     }
 }
